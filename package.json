@@ -1,0 +1,16 @@
+{
+  "name": "DataStructures",
+  "version": "1.0.0",
+  "description": "data structures",
+  "main": "BST.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node BST.js"
+  },
+  "author": "sr",
+  "license": "ISC",
+  "dependencies": {
+    "util": "^0.12.4"
+  }
+}
