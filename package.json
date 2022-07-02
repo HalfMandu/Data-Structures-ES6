@@ -2,11 +2,11 @@
   "name": "DataStructures",
   "version": "1.0.0",
   "description": "data structures",
-  "main": "BST.js",
+  "main": "Graph.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node BST.js"
+    "start": "node Graph.js"
   },
   "author": "sr",
   "license": "ISC",

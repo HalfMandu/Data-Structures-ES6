@@ -11,15 +11,18 @@
 		set(key, value) 
 		get(key)
 		remove(key)
+		resize(bucketSize)
+		getLoad()
 		display()
 */
 
 class HashTable {
 	
-	//Defauts to 127 buckets
-	constructor(buckets = 127) {
+	constructor(buckets = 37) {
 		this.table = new Array(buckets);
 		this.size = 0;		//total number of stored elements
+		this.MAX_LOAD = 0.75;
+		this.MIN_LOAD = 0.25;
 	}
 	
 	//Hashing function to derive index from a key
@@ -63,6 +66,11 @@ class HashTable {
 		//hash index must exist, push the new pair
 		this.table[index].push([key, value]);	
 		this.size++;
+		
+		//check if a resize is needed
+		if (this.getLoad() >= this.MAX_LOAD){
+			this.resize(this.table.length * 2);
+		}
 	}
 	
 	//Get a value from the HashTable
@@ -90,16 +98,62 @@ class HashTable {
 			//identify location of the key within the second-level chain
 			const keyLoc = chain.findIndex(keyVal => keyVal[0] == key);
 			
-			//if key is present, chop it out
+			//if key is present, chop it out...resize table if needed
 			if (keyLoc > -1){
 				chain.splice(keyLoc, 1);
 				this.size--;
+				if (this.getLoad() <= this.MIN_LOAD){
+					this.resize(this.table.length / 2);
+				}
 				return true;
 			} 
 			
-		} else {
-			return false;
 		}
+		
+		return false;	//key not present
+		
+	}
+	
+	//Resize table to better suit the load (using prime nums)...O(n) time, visit every item
+	resize(bucketSize){
+	
+		console.log("Resizing...current load: " + this.getLoad()*100 + "%");
+
+		//make a copy of old table, create new hash table and reset count
+		const oldTable = this.table;
+		this.table = new Array(this.getNextPrimeNum(bucketSize));
+		this.size = 0;
+
+		//step through old table array and transfer items to new table		
+		for (let bucket of oldTable) {
+			if (bucket) {
+				for (let [key, val] of bucket) {
+					this.set(key, val);
+				}
+			}
+		} 
+		
+		console.log("New load: " + this.getLoad()*100 + "%");
+	};
+	
+	//Return the current load on the hash table -- items/slots
+	getLoad(){
+		return (this.size / this.table.length).toFixed(2);
+	}
+	
+	//Convert string to an int -- between 0 and max - 1
+	hashFunc2(str){
+		
+		let hash = 0;
+		
+		for (let [currChar] of [...str]){
+			hash = (hash << 5) + hash + currChar.charCodeAt(0);
+			hash = hash & hash;		//convert to 32bit int
+			hash = Math.abs(hash);
+		}
+		
+		return hash % this.table.length;;
+		
 	}
 	
 	//Display all key/value pairs stored in the HashTable
@@ -118,6 +172,24 @@ class HashTable {
 	
 		console.log("------------------------------------------");
 	
+	}
+	
+	//Get a prime number nearby the bucketSize to use as the new bucket count 
+	getNextPrimeNum(num){
+		num = Math.round(num);
+		while (!this.isPrime(++num)){};	//increment from bucketSize until reach a prime num
+		return num;
+	};
+	
+	//Boolean prime number checker
+	isPrime(num) {
+		let start = 2;
+		while (start <= Math.sqrt(num)) {
+			if (num % start++ < 1) {
+				return false;
+			}
+		}
+		return num > 1;
 	}
 	
 }

@@ -87,7 +87,7 @@ class Graph {
 				} 			
 			}
 			
-			//directed case - check all adajaceny lists and delete any reference 
+			//directed case - check all adjacency lists and delete any reference 
 			for (let [vert] of this.vertices){
 				if (this.vertices.get(vert).isNeighbor(targetVert)){
 					this.vertices.get(vert).removeNeighbor(targetVert);

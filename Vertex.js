@@ -19,6 +19,9 @@ class Vertex {
 			this.neighbors.splice(this.neighbors.indexOf(vertex), 1);  //remove it from the list
 			return vertex;
 		}
+		
+		//vertex was not a neighbor
+		return null;
 	}
 	
 	//return a list of all vertices that share and edge with this vertex

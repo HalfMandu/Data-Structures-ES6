@@ -172,6 +172,7 @@ class Graph {
 	
 		const graphReversed = new Graph(this.graphType);
 		
+		//create an opposite edge using each neighbor of each vertex 
 		for (let [vertex] of this.vertices){
 			this.vertices.get(vertex).forEach(neighbor => {
 				graphReversed.addEdge(neighbor, vertex);

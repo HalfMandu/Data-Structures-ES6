@@ -44,7 +44,7 @@ class BinarySearchTree {
 	
 	//A new tree will have no nodes
 	constructor(){
-		this.root = null;
+		this.root = null;	//root will hold a Node obj
 	}
 	
 	//A new node is inserted at the bottom level as a leaf. start searching a key from the root until hit a leaf node. Once a leaf node is found, the new node is added as a child. 
@@ -65,7 +65,7 @@ class BinarySearchTree {
         while(currNode){
 			
 			//the new node already exists
-            if (value === currNode.value){
+            if (currNode.value === value){
 				console.log("New node already exists");
 				return undefined;
 			}
@@ -104,6 +104,7 @@ class BinarySearchTree {
 		
 		//keep drilling until target is found
 		while (currNode){
+			//base case
 			if (value === currNode.value){
 				console.log("Target found.");
 				return currNode;
@@ -118,7 +119,7 @@ class BinarySearchTree {
 		return null;
 	}
 	
-	//Wrapper to oversee the removal and return of a node from the tree, needed to trap recursion
+	//Wrapper to oversee the removal of a node from the tree, needed to trap recursion
 	delete(value){
 		return this.findAndDelete(this.root, value);
 	}
@@ -126,12 +127,12 @@ class BinarySearchTree {
 	//Search for the node (recursively) and delete it...running time based on height of the tree
 	findAndDelete(currNode, value){
 		
-		//make sure node exists
+		//make sure tree isn't empty
 		if (!currNode){
 			return null;
 		}
 		
-		//if found the node, delete it, otherwise keep recursing
+		//if found the node, delete it (base case), otherwise keep recursing
 		if (value === currNode.value) {
 			currNode = this.deleteNode(currNode);  //needs to go find which node to replace currNode with
 		} else if (value < currNode.value) {
