@@ -124,14 +124,10 @@ class HashTable {
 		this.table = new Array(this.getNextPrimeNum(bucketSize));
 		this.size = 0;
 
-		//step through old table array and transfer items to new table		
-		for (let bucket of oldTable) {
-			if (bucket) {
-				for (let [key, val] of bucket) {
-					this.set(key, val);
-				}
-			}
-		} 
+		//step through non-empty buckets of old table array and transfer chain items to new table	
+		oldTable.filter(chain => chain).forEach(chain => {
+			return chain.forEach(([key, val]) => this.set(key, val));
+		});	
 		
 		console.log("New load: " + this.getLoad()*100 + "%");
 	};
