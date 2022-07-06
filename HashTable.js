@@ -179,8 +179,8 @@ class HashTable {
 		let hash = 0;
 		
 		//ha(x1,x2,x3,x4) = (a1x1 + a2x2 + a3x3 + a4x4) mod n 
-		for (let [i, mult] of coefficients.entries()){
-			hash = hash + (coefficients[i] * parts[i]);
+		for (let [i, coefficient] of coefficients.entries()){
+			hash = hash + (coefficient * parts[i]);
 		};
 		
 		hash = hash % this.table.length;		
