@@ -23,6 +23,7 @@ class HashTable {
 		this.size = 0;		//total number of stored elements
 		this.MAX_LOAD = 0.75;
 		this.MIN_LOAD = 0.25;
+		this.coefficients = this.getCoefficients();
 	}
 	
 	//Hashing function to derive index from a key
@@ -168,6 +169,40 @@ class HashTable {
 	
 		console.log("------------------------------------------");
 	
+	}
+	
+	//Hashing for IP addresses
+	hashIP(ipAddr){
+				
+		let parts = ipAddr.split(".");
+		let coefficients = this.coefficients;		
+		let hash = 0;
+		
+		//ha(x1,x2,x3,x4) = (a1x1 + a2x2 + a3x3 + a4x4) mod n 
+		for (let [i, mult] of coefficients.entries()){
+			hash = hash + (coefficients[i] * parts[i]);
+		};
+		
+		hash = hash % this.table.length;		
+		
+		return hash;
+	}
+	
+	//Return array of 4 coefficients used for multipling IP parts
+	getCoefficients(){
+		
+		let coefficients = new Array(4);
+		
+		for (let [i] of coefficients.entries()){
+			coefficients[i] = this.getRandomBoundedNumb();			
+		}; 
+				
+		return coefficients;
+	}
+	
+	//Return random number between 1 - bucketSize
+	getRandomBoundedNumb(){
+		return Math.floor(Math.random() * (this.table.length)) + 1;
 	}
 	
 	//Get a prime number nearby the bucketSize to use as the new bucket count 
