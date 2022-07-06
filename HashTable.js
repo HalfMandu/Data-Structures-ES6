@@ -50,7 +50,7 @@ class HashTable {
 		if (chain) {
 		
 			//index exists, now checking if key exists						
- 			const keyLoc = chain.findIndex(keyVal => keyVal[0] == key);
+ 			const keyLoc = chain.findIndex(([currKey]) => currKey === key);
 			
 			//if key exists, overwrite it
 			if (keyLoc > -1){
@@ -79,12 +79,12 @@ class HashTable {
 		const index = this.hashFunc(key);
 		const chain = this.table[index];
 		
-		//check the chain at the derived index and return the correct key/value pair if key found
+		//check the chain at the derived index and return the key/value pair if key found
 		if (chain) {
-			return chain.find(keyVal => keyVal[0] === key)[1];
+			return chain.find(([currKey]) => currKey === key)[1];
 		}
 		
-		return undefined;  //key not present
+		return false;  //key not present
 	}
 
 	//Delete a key/value pair from the Hash Table
@@ -96,7 +96,7 @@ class HashTable {
 		if (chain) {
 			
 			//identify location of the key within the second-level chain
-			const keyLoc = chain.findIndex(keyVal => keyVal[0] == key);
+			const keyLoc = chain.findIndex(([currKey]) => currKey === key);
 			
 			//if key is present, chop it out...resize table if needed
 			if (keyLoc > -1){
@@ -193,4 +193,42 @@ class HashTable {
 	}
 	
 }
+
+///////
+
+const ht = new HashTable();
+
+//set elements in the table
+ht.set("France", 111);
+ht.set("Spain", 150);
+ht.set("ǻ", 192);    	//creates collision with Spain -- both hash to 126
+ht.set("France", 99);
+ht.set("bill", 17);
+ht.set("amy", 4);
+ht.set("sam", 51);
+ht.set("tim", 17);
+ht.set("phil", 53);
+ht.set("jane", 78); 
+
+ht.display();
+
+console.log(ht.get("ǻ")); 
+console.log(ht.get("Spain")); 
+console.log(ht.get("bill"));  
+console.log(ht.get("amy"));  
+console.log(ht.get("sam"));  
+console.log(ht.get("ǻ"));  
+console.log(ht.get("tim"));  
+console.log(ht.get("phil"));  
+console.log(ht.get("jane"));   
+console.log(ht.get("lama"));    //not present 
+
+
+
+
+
+
+
+
+
 
