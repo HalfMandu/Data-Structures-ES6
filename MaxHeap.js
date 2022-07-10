@@ -17,7 +17,7 @@ class MaxHeap {
 	
 	//Insert an array of ints one at a time into Heap
 	buildMaxHeap(){
-		let values = [3, 1, 6, 5, 2, 4]   				    // 1,2,4,5,3,6
+		const values = [3, 1, 6, 5, 2, 4]   				    // 1,2,4,5,3,6
 		values.forEach(val => this.insert(Number(val)));
 	}
 	

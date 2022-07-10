@@ -45,7 +45,7 @@ class PriorityQueue{
 	
 	//Remove and return the first item in the queue AKA highest priority
 	dequeue(){
-		let value = this.queue.shift();
+		const value = this.queue.shift();
 		return value.value;
 	};
 	

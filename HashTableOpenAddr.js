@@ -196,7 +196,7 @@ class HashTable {
 		console.log("Hash Table: ");
 		console.log("Size: " + this.size);
 		console.log("------------------------------------------");
-		for (let [key, val] of this.table.entries()){
+		for (const [key, val] of this.table.entries()){
 			console.log(key, val);
 		}
 		console.log("------------------------------------------");

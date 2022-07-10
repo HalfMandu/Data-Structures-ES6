@@ -21,7 +21,7 @@ class MinHeap {
 	
 	//Insert an array of ints one at a time into Heap
 	buildMinHeap(){
-		let values = [3, 1, 6, 5, 2, 4]   				    // 1,2,4,5,3,6
+		const values = [3, 1, 6, 5, 2, 4]   				    // 1,2,4,5,3,6
 		values.forEach(val => this.insert(Number(val)));
 	}
 	
@@ -177,8 +177,8 @@ class MinHeap {
 	deleteKey(index){
 		
 		//replace node with last node, then bubble
-		let delVal = this.heap[index];
-		let end = this.heap.pop();
+		const delVal = this.heap[index];
+		const end = this.heap.pop();
 		this.heap[index] = end;
 		this.bubble(delVal, end, index);
 		
@@ -189,7 +189,7 @@ class MinHeap {
 	deleteKey2(index){
 	
 		//plummet a key's value, then bubble it up to the top of the tree, then extract min
-		let delValue = this.heap[index];
+		const delValue = this.heap[index];
 		this.heap[index] = Number.NEGATIVE_INFINITY;
 		this.bubbleUp(index);
 		this.extractMin();

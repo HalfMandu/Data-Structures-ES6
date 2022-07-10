@@ -51,7 +51,7 @@ class BinarySearchTree {
 	//A new node is inserted at the bottom level as a leaf. start searching a key from the root until hit a leaf node. Once a leaf node is found, the new node is added as a child 
 	insert(value){
 	
-        let newNode = new Node(value);
+        const newNode = new Node(value);
 		
 		//if there is no root, set incoming node as root
         if (!this.root){
@@ -264,7 +264,7 @@ class BinarySearchTree {
 		} 
 	
 		//swap left and right
-		let temp = currNode.left;
+		const temp = currNode.left;
 		currNode.left = currNode.right;
 		currNode.right = temp;
 	}
@@ -456,7 +456,7 @@ class BinarySearchTree {
 			return null; 
 		}
 		
-		let leftSize = this.size(currNode.left);
+		const leftSize = this.size(currNode.left);
 		
 		//if left subtree greater than i, left tree must encompass i...dig to the left
 		if (leftSize > i){
@@ -578,7 +578,7 @@ console.log("select order i: " + i);
 //console.log(bst.select2(bst.root, i).value);
 console.log(bst.select(i-1)); */
 
-let r = 10;
+const r = 10;
 console.log("rank: " + r);  
 console.log(bst.rank(bst.root, r)); 
 console.log("rank recursive: " + r);  
