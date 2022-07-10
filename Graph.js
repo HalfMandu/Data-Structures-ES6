@@ -5,8 +5,8 @@
 *	This Graph implementation uses a map to associate int keys with vertice arrays
 */
 
-const Queue = require('./Queue');
-const Stack = require('./Stack');
+import { Queue } from './Queue.js';
+import { Stack } from './Stack.js';
 
 class Graph {
 	
@@ -49,8 +49,8 @@ class Graph {
 		if (this.vertices.has(v)){
 			
 			//go through each of its neighbors' lists and remove their ref to it
-			for (let neighbor of this.vertices.get(v)){
-				this.vertices.get(neighbor).splice(this.vertices.get(neighbor).indexOf(v), 1); 
+			for (const neighbor of this.vertices.get(v)){
+				this.vertices.get(neighbor).splice(neighbor.indexOf(v), 1); 
 			}
 			
 			//finally, delete obsolete v
@@ -86,7 +86,7 @@ class Graph {
 		//keep discovering vertices until queue is empty
 		while (!exploreQueue.isEmpty()) {
 			//loop through the lists and add a vertex to the queue if it is not explored yet
-			for (let neighbor of this.vertices.get(exploreQueue.dequeue())){
+			for (const neighbor of this.vertices.get(exploreQueue.dequeue())){
 				if (!explored[neighbor]){
 					explored[neighbor] = true;
 					exploreQueue.enqueue(neighbor);
@@ -103,7 +103,7 @@ class Graph {
 		explored[start] = true;
 		console.log(start);
 		
-		for (let neighbor of this.vertices.get(start)){
+		for (const neighbor of this.vertices.get(start)){
 			if (!explored[neighbor]){
 				explored[neighbor] = true;
 				this.dfs(neighbor, explored);
@@ -119,11 +119,11 @@ class Graph {
 		exploreStack.push(start);
 		
 		while (!exploreStack.isEmpty()) {
-			let nextVert = exploreStack.pop();
+			const nextVert = exploreStack.pop();
 			if (!explored[nextVert]){
 				explored[nextVert] = true;
 				console.log(nextVert);
-				for (let neighbor of this.vertices.get(nextVert)){
+				for (const neighbor of this.vertices.get(nextVert)){
 					exploreStack.push(neighbor);
 				}
 			}
@@ -136,10 +136,10 @@ class Graph {
 		//visit this vert
 		explored[vertex] = true;
 	   	
-		let neighbors = this.vertices.get(vertex);
+		const neighbors = this.vertices.get(vertex);
 		
 		//check each neighbor -- if they aren't explored, recurse on them and update vert counter
-		for (let neighbor of this.vertices.get(vertex)){
+		for (const neighbor of neighbors){
 			if (!explored[neighbor]) {
 				numVerts = this.topSortRecurser(neighbor, numVerts, explored, order);
 			}
@@ -155,10 +155,10 @@ class Graph {
 	
 		let explored = {};		//keeps track of which verts have been visited
 		let order = {};			//object tracking vertices to their final order position
-		let numVerts = this.vertices.size;
+		const numVerts = this.vertices.size;
 				
 		//For every unvisited vertex, explore it and neighors
-		for (let [vertex] of this.vertices){	
+		for (const [vertex] of this.vertices){	
 			if (!explored[vertex]) {
 				this.topSortRecurser(vertex, numVerts, explored, order);
 			}
@@ -173,7 +173,7 @@ class Graph {
 		const graphReversed = new Graph(this.graphType);
 		
 		//create an opposite edge using each neighbor of each vertex 
-		for (let [vertex] of this.vertices){
+		for (const [vertex] of this.vertices){
 			this.vertices.get(vertex).forEach(neighbor => {
 				graphReversed.addEdge(neighbor, vertex);
 			});
@@ -193,7 +193,7 @@ class Graph {
 	printGraph() {
 		console.log(this.graphType + " GRAPH: ");
 		//extract key/vals and display them
-		for (let [vertex, neighbors] of this.vertices){
+		for (const [vertex, neighbors] of this.vertices){
 			console.log(vertex, neighbors);
 		}
 	};
@@ -215,10 +215,10 @@ class Graph {
 	*           |
 	*           H
 */
-//const graph = new Graph("DIRECTED");
+/* const graph = new Graph("DIRECTED");
 
 //initialize graph by adding edges
-/* graph.addEdge('A', 'B');
+graph.addEdge('A', 'B');
 graph.addEdge('A', 'D');
 graph.addEdge('A', 'E');
 graph.addEdge('B', 'C');
@@ -229,9 +229,9 @@ graph.addEdge('F', 'G');
 graph.addEdge('G', 'H'); 
 //graph.addEdge('Y', 'Z');  //just dummy verts, seperated from the rest/unreachable...
 
-graph.printGraph(); */
+graph.printGraph(); 
 
-/* console.log("BFS...");
+console.log("BFS...");
 graph.bfs('A');
 
 console.log("DFS...");
@@ -250,16 +250,15 @@ graph.printGraph();
 console.log("Removing edge...");
 graph.removeEdge('B', 'C');
 graph.printGraph();  
-*/
 
-/* console.log("Reversing graph...");
+
+console.log("Reversing graph...");
 let graphReversed = graph.reverse();
-graphReversed.printGraph();
- */
+graphReversed.printGraph(); */
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//export { Graph };
-module.exports = { Graph };
+export { Graph };
 
 
 
