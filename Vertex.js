@@ -37,7 +37,7 @@ class Vertex {
 	//display a vertex's neighbors
 	printNeighbors(vertex){
 		console.log("PRINTING NEIGHBORS FOR VERTEX " + vertex);
-		for (let neighbor of this.neighbors) {
+		for (const neighbor of this.neighbors) {
 			console.log("neighbor: " + neighbor.value);
 		} 	
 	}

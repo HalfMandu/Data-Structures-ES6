@@ -78,17 +78,17 @@ class Graph {
 		//make sure it exists
 		if (this.vertices.has(vertexKey)) {
 		
-			let targetVert = this.vertices.get(vertexKey);
+			const targetVert = this.vertices.get(vertexKey);
 			
 			//only remove neighbor if they are neighbors to begin with...only works in undirected case
 			if (this.graphType === "UNDIRECTED"){
-				for (let neighbor of targetVert.neighbors) {
+				for (const neighbor of targetVert.neighbors) {
 					neighbor.removeNeighbor(targetVert); 
 				} 			
 			}
 			
 			//directed case - check all adjacency lists and delete any reference 
-			for (let [vert] of this.vertices){
+			for (const [vert] of this.vertices){
 				if (this.vertices.get(vert).isNeighbor(targetVert)){
 					this.vertices.get(vert).removeNeighbor(targetVert);
 				}
@@ -144,7 +144,7 @@ class Graph {
 		explored[start.value] = true;
 		console.log(start.value);
 		
-		for (let neighbor of start.neighbors){
+		for (const neighbor of start.neighbors){
 			if (!explored[neighbor.value]){
 				explored[neighbor.value] = true;
 				this.dfsRecursive(neighbor, explored);
@@ -195,7 +195,7 @@ class Graph {
 		explored[vertex] = true;
 	   	   
 		//check each neighbor -- if they aren't explored, recurse on them
-		for (let neighbor of this.vertices.get(vertex).neighbors){
+		for (const neighbor of this.vertices.get(vertex).neighbors){
 			if (!explored[neighbor.value]) {
 				numVerts = this.topSortRecurser(neighbor.value, numVerts, explored, order);
 			}
@@ -214,7 +214,7 @@ class Graph {
 		let numVerts = [...this.vertices.keys()].length - 1;
 		
 		//For every unvisited vertex, explore it and neighors
-		for (let [vertex] of this.vertices){	
+		for (const [vertex] of this.vertices){	
 			if (!explored[vertex]) {
 				this.topSortRecurser(vertex, numVerts, explored, order);
 			}
@@ -230,7 +230,7 @@ class Graph {
 		explored[vertex] = true;
 	   	   
 		//check each neighbor -- if they aren't explored, recurse on them
-		for (let neighbor of this.vertices.get(vertex).neighbors){
+		for (const neighbor of this.vertices.get(vertex).neighbors){
 			if (!explored[neighbor.value]) {
 				this.topSortStackRecurser(neighbor.value, explored, stack);
 			}
@@ -247,7 +247,7 @@ class Graph {
 		let explored = {};		  //keeps track of which verts have been visited
 
 		//For every unvisited vertex, explore it and neighors
-		for (let [vertex] of this.vertices){	
+		for (const [vertex] of this.vertices){	
 			if (!explored[vertex]) {
 				this.topSortStackRecurser(vertex, explored, stack);
 			}
@@ -262,7 +262,7 @@ class Graph {
 	getSink(){
 	
 		//returns the first sink it finds
-		for (let [vert] of this.vertices){
+		for (const [vert] of this.vertices){
 			if (this.vertices.get(vert).neighbors.length < 1){
 				return this.vertices.get(vert);
 			}
@@ -290,7 +290,7 @@ class Graph {
 		
 		console.log(this.graphType + " GRAPH: ");
 		
-		for (let [vertex, neighbors] of this.vertices){
+		for (const [vertex, neighbors] of this.vertices){
 			console.log(vertex, neighbors);
 		}
 	}

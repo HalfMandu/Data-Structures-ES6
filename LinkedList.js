@@ -34,7 +34,7 @@ class LinkedList {
 	//Add a new Node with the given value...tacks it onto the end
 	add(value) {
 	
-		let node = new Node(value);
+		const node = new Node(value);
 		let current;
 
 		if (this.head == null) {
@@ -57,30 +57,40 @@ class LinkedList {
 	}
 	
 	//Insert a node at a location
-	insertAt(data, index){
+	insertAt(data, index) {
 	
-			//check if the list is empty 
-			if (!this.head) {
-				this.head = new Node(data);
-				return;
-			}
-			
-			//check if new node to be inserted at the front of the list
-			if (index === 0) {
-			   this.head = new Node(data, this.head);
-			   return;
-			}
-			
-			//else, find the previous node
-			const previous = this.getAt(index - 1);
-			let newNode = new Node(data);
-			newNode.next = previous.next;
-			previous.next = newNode;       
+		if (index < 0 || index > this.size){
+			return console.log("Not a valid index...");
+		}
+		else {
+		
+			//new node
+			const node = new Node(data);
+			let curr, prev;
 
-			this.size++;
+			curr = this.head;
+
+			if (index == 0) {
+				node.next = this.head;
+				this.head = node;
+			} else {
+				curr = this.head;
+				let iter = 0;
+
+				//step through the list to find position
+				while (iter < index) {
+					iter++;
+					prev = curr;
+					curr = curr.next;
+				}
+
+				node.next = curr;
+				prev.next = node;
+			}
 			
-			return this.head
-	   }
+			this.size++;
+		}
+	}
 
 	//Remove and return an element from a specific location
 	removeFrom(index) {
@@ -216,7 +226,7 @@ console.log(ll.isEmpty());
 ll.add(10);
 
 // prints 10
-ll.printList();
+ll.print();
 
 // returns 1
 ll.listSize();
@@ -228,13 +238,13 @@ ll.add(40);
 ll.add(50);
 
 // returns 10 20 30 40 50
-ll.printList();
+ll.print();
 
 // prints 50 from the list
 console.log("is element removed ? " + ll.removeElement(50));
 
 // prints 10 20 30 40
-ll.printList();
+ll.print();
 
 // returns 3
 console.log("Index of 40 " + ll.indexOf(40));
@@ -242,7 +252,7 @@ console.log("Index of 40 " + ll.indexOf(40));
 // insert 60 at second position ll contains 10 20 60 30 40
 ll.insertAt(60, 2);
 
-ll.printList();
+ll.print();
 
 // returns false
 console.log("is List Empty ? " + ll.isEmpty());
@@ -251,5 +261,7 @@ console.log("is List Empty ? " + ll.isEmpty());
 console.log(ll.removeFrom(3));
 
 // prints 10 20 60 40
-ll.printList();
+ll.print();
+
+
  */

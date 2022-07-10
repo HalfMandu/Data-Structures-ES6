@@ -50,7 +50,7 @@ class BinarySearchTree {
 	//A new node is inserted at the bottom level as a leaf. start searching a key from the root until hit a leaf node. Once a leaf node is found, the new node is added as a child. 
 	insert(value){
 	
-        let newNode = new Node(value);
+        const newNode = new Node(value);
 		
 		//if there is no root, set incoming node as root
         if (!this.root){
@@ -487,7 +487,7 @@ bst.inOrder(bst.root);		//1, 2, 3, 5, 6, 7, 8
 //Removing node
 console.log("Traversing pre-order...");  
 bst.preOrder(bst.root);		
-let delNode = 6;
+const delNode = 6;
 console.log("Removing node " + delNode);  
 bst.delete(delNode);  
 console.log("Traversing pre-order...");  
