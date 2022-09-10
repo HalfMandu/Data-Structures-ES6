@@ -70,7 +70,7 @@ class BinarySearchTree {
 				return undefined;
 			}
 			
-			//new value is greater than current spot, move to the left
+			//new value is less than current spot, move to the left
             if (value < currNode.value){
                 if (!currNode.left){
                     currNode.left = newNode;	//reached the bottom of the tree, add the new node
